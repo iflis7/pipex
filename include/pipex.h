@@ -6,7 +6,7 @@
 /*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 19:36:53 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/06/14 10:36:16 by hsaadi           ###   ########.fr       */
+/*   Updated: 2022/10/21 16:11:29 by hsaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,33 @@
 # include <fcntl.h>
 
 /* for perror*/
+# include <stdbool.h>
 # include <stdio.h>
 
-void	pipex(char **argv, char **envp, int fd);
+typedef struct s_pipex
+{
+	pid_t	*child;
+	int		pfd[2];
+	char	***cmd;
+	char	**opts;
+	char	**env;
+	char	**argv;
+	int		cmd_n;
+	int		fd_in;
+	int		fd_out;
+	
+}			t_pipex;
 
-void	message(char *error);
-void	msg_exit(char *error);
-void	msg_error(char *error);
+void		pipex(char **argv, char **envp, int fd);
+bool		init_pipex(int argc, char **argv, char **envp, t_pipex *pipex);
+void		pipex_bonus(t_pipex *pipex);
 
-void	fru(char **str);
-char	*get_cmd(char *paths, char **envp);
-char	*get_cmd_path(char **envp, char *cmd);
+void		message(char *error);
+void		msg_exit(char *error);
+void		msg_error(char *error);
+
+void		fru(char **str);
+char		*get_cmd(char *paths, char **envp);
+char		*get_cmd_path(char **envp, char *cmd);
 
 #endif

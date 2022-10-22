@@ -6,7 +6,7 @@
 /*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 19:36:35 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/06/10 09:09:34 by hsaadi           ###   ########.fr       */
+/*   Updated: 2022/10/21 14:45:11 by hsaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,9 @@ void	msg_error(char *error)
 	perror(error);
 	exit(EXIT_FAILURE);
 }
+
+// bool store_cmd(char ***cmd)
+// {
+	
+// }
+
