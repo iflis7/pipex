@@ -8,7 +8,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g
 RM = rm -f
 
-SRCS_FILES = main.c pipex.c utils.c check_args.c bonus.c
+SRCS_FILES = main.c pipex.c utils.c check_args.c bonus.c functools.c
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_FILES))
 OBJS = $(SRCS:.c=.o)
 
