@@ -1,37 +1,5 @@
 #include "../include/pipex.h"
 
-// bool create_pipes(t_pipex *pipex)
-// {
-//     int i;
-
-//     i = 0;
-//     pipex->pipe = malloc(sizeof(t_pipe) * (pipex->cmd_n));
-//     // pipex->pfd[2] = malloc(sizeof(int) * (pipex->cmd_n));
-//     while (i < pipex->cmd_n)
-//     {
-//         if (pipe(pipex->pipe[i].pfd) == -1)
-//             msg_error("Pipe creation failed!\n");
-//         i++;
-//     }
-//     // while (i < pipex->cmd_n)
-//     // {
-//     //     if (pipe(pipex->pfd[i]) == -1)
-//     //         msg_error("Pipe creation failed!\n");
-//     //     i++;
-//     // }
-//     return (true);
-// }
-
-// void	create_pipes(t_pipex *pipex)
-// {
-// 	int i = 0;
-// 	pipex->pfd = malloc(sizeof(int) * pipex->cmd_n);
-// 	while (i < pipex->cmd_n)
-// 	{
-// 		if (pipe(pipex->pfd + (2 * i++)) == -1)
-// 			msg_error("Pipe creation failed!\n");
-// 	}
-// }
 int	get_next_line(char **line)
 {
 	char	*buffer;
