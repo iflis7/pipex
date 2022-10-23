@@ -47,5 +47,5 @@ void	pipex_bonus(t_pipex *pipex, int argc, int i)
 	}
 	dup2(pipex->fd_out, STDOUT_FILENO);
 	if (execve(*pipex->cmd[i], pipex->cmd[i], pipex->env) == -1)
-			msg_error("Command execution failed!\n");
+		msg_error("Command execution failed!\n");
 }
