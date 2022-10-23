@@ -59,10 +59,9 @@ int	get_next_line(char **line)
 	return (rd);
 }
 
-
 void	here_doc(t_pipex *pipex)
 {
-	char	*line;
+	char *line;
 
 	if (pipe(pipex->pfd) == -1)
 		msg_error("Pipe creation failed!\n");
@@ -73,7 +72,8 @@ void	here_doc(t_pipex *pipex)
 		printf("heredoc> \n");
 		while (get_next_line(&line))
 		{
-			if (ft_strncmp(line, pipex->argv[2], ft_strlen(pipex->argv[2])) == 0)
+			if (ft_strncmp(line, pipex->argv[2],
+					ft_strlen(pipex->argv[2])) == 0)
 				exit(EXIT_SUCCESS);
 			write(pipex->pfd[1], line, ft_strlen(line));
 		}
