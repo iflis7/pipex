@@ -6,7 +6,7 @@
 /*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 19:36:53 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/10/23 18:32:57 by hsaadi           ###   ########.fr       */
+/*   Updated: 2022/10/23 18:47:11 by hsaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 /* for perror*/
 # include <stdbool.h>
 # include <stdio.h>
-
 
 typedef struct s_pipex
 {
@@ -51,6 +50,6 @@ char		*get_cmd_path(char **envp, char *cmd);
 void		waiting(t_pipex *pipex);
 char		***new_cmd(size_t rows, t_pipex *pipex);
 void		create_pipes(t_pipex *pipex);
-void	here_doc(t_pipex *pipex);
+void		here_doc(t_pipex *pipex);
 
 #endif
