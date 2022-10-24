@@ -6,7 +6,7 @@
 /*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 19:36:35 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/10/22 11:18:08 by hsaadi           ###   ########.fr       */
+/*   Updated: 2022/10/24 11:00:25 by hsaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,6 @@ void	msg_error(char *error)
 {
 	perror(error);
 	exit(EXIT_FAILURE);
-}
-
-char	***new_cmd(size_t rows, t_pipex *pipex)
-{
-	char	***newArr;
-	size_t	i;
-
-	newArr = NULL;
-	i = 0;
-	newArr = malloc(sizeof(*newArr) * rows);
-	if (!newArr)
-		msg_exit("Something went wrong with malloc!");
-	while (i < rows)
-	{
-		newArr[i] = malloc(sizeof(*newArr[i]) * 1);
-		if (!newArr[i])
-			msg_exit("Something went wrong with malloc!");
-		newArr[i] = ft_split(pipex->argv[i + 2], ' ');
-		newArr[i][0] = get_cmd(pipex->argv[i + 2], pipex->env);
-		i++;
-	}
-	return (newArr);
 }
 
 void	waiting(t_pipex *pipex)
