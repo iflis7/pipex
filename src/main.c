@@ -6,7 +6,7 @@
 /*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 09:10:59 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/10/24 12:10:29 by hsaadi           ###   ########.fr       */
+/*   Updated: 2022/10/25 00:50:23 by hsaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	main(int argc, char **argv, char **envp)
 			dup2(pipex.fd_in, STDIN_FILENO);
 		}
 		pipex_bonus(&pipex, i);
+		fru(*pipex.cmd);
+		free(pipex.cmd);
 	}
 	else
 		msg_exit("Program needs at least 5 args!\n👇Like👇\ninfile ls wc outfile");
