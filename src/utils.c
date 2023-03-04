@@ -6,7 +6,7 @@
 /*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 19:36:35 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/10/24 11:00:25 by hsaadi           ###   ########.fr       */
+/*   Updated: 2022/10/26 01:21:24 by hsaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,19 @@ void	fru(char **str)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
-		free(str[i++]);
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	// free(str);
 }
 
-void	message(char *error)
+void	fruthree(char ***str)
 {
-	write(2, "Error: ", 8);
-	write(2, error, ft_strlen(error));
-	write(2, "\n", 1);
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		fru(str[i]);
 }
 
 void	msg_exit(char *error)
@@ -33,12 +36,6 @@ void	msg_exit(char *error)
 	write(2, "Exit: ", 7);
 	write(2, error, ft_strlen(error));
 	write(2, "\n", 1);
-	exit(EXIT_FAILURE);
-}
-
-void	msg_error(char *error)
-{
-	perror(error);
 	exit(EXIT_FAILURE);
 }
 

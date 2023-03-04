@@ -14,6 +14,11 @@ OBJS = $(SRCS:.c=.o)
 
 all: 	$(NAME)
 	@echo "BOOM 💥💥💥💥💥 $(NAME) Compiled! 💯 $(DEFAULT)"
+	
+clean:
+	@$(RM) $(OBJS)
+	@make -C $(LIBFT_PATH) clean
+	@echo "$(YELLOW)Object files deleted!$(DEFAULT)💯"
 
 
 $(NAME): $(OBJS)
@@ -21,10 +26,6 @@ $(NAME): $(OBJS)
 	-@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
 	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
-clean:
-	@$(RM) $(OBJS)
-	@make -C $(LIBFT_PATH) clean
-	@echo "$(YELLOW)Object files deleted!$(DEFAULT)💯"
 
 fclean:	clean
 	@$(RM) $(NAME) $(LIBFT)
@@ -51,3 +52,13 @@ run:
 
 runcmd:
 	@./pipex "notes.txt" "/bin/cat" "/usr/bin/wc" out.txt
+
+
+summary:
+	valgrind --leak-check=summary --trace-children=yes --track-fds=yes ./$(NAME)
+
+valgrind:
+	valgrind --leak-check=full  --show-leak-kinds=all --trace-children=yes --track-fds=yes ./$(NAME)
+
+full:
+	valgrind --leak-check=full ./$(NAME) "Makefile" "cat" "cat" "wc" "out"

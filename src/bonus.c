@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bonus.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 23:47:35 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/10/25 00:51:06 by hsaadi           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/pipex.h"
 
-bool	init_pipex(int argc, char **argv, char **envp, t_pipex *pipex)
+int	init_pipex(int argc, char **argv, char **envp, t_pipex *pipex)
 {
 	if (ft_strncmp(argv[1], "here_doc", 8))
 	{
@@ -32,39 +20,53 @@ bool	init_pipex(int argc, char **argv, char **envp, t_pipex *pipex)
 	pipex->env = envp;
 	pipex->argv = argv;
 	return (true);
-}
+};
 
 bool	run_process(t_pipex *pipex, int i)
 {
+	char	*cmd;
+	char	**opt;
+
+	cmd = get_cmd(pipex->argv[i], pipex->env);
+	opt = ft_split(pipex->argv[i], ' ');
 	if (pipe(pipex->pfd) == -1)
-		msg_error("Pipe creation failed!\n");
+		msg_exit("Pipe creation failed!\n");
 	pipex->child = fork();
 	if (pipex->child == -1)
-		msg_error("Fork creation failed!\n");
+		msg_exit("Fork creation failed!\n");
 	if (pipex->child == 0)
 	{
 		close(pipex->pfd[0]);
+		dup2(pipex->fd_in, STDIN_FILENO);
 		dup2(pipex->pfd[1], STDOUT_FILENO);
-		if (execve(*pipex->cmd[i], pipex->cmd[i], pipex->env) == -1)
-			msg_error("Command execution failed!\n");
+		if (execve(cmd, opt, pipex->env) == -1)
+			msg_exit("Command execution failed}!\n");
 	}
 	else
 	{
 		close(pipex->pfd[1]);
 		dup2(pipex->pfd[0], STDIN_FILENO);
-		waitpid(pipex->child, NULL, 0);
+		waitpid(pipex->child, NULL, WNOHANG);
+		fru(opt);
+		free(cmd);
 	}
 	return (true);
-}
+};
 
 void	pipex_bonus(t_pipex *pipex, int i)
 {
-	int	j;
+	char	*cmd;
+	char	**opt;
 
-	j = -1;
-	while (++j < i - 1)
-		run_process(pipex, j);
+	while (i < pipex->cmd_n)
+		run_process(pipex, i++);
+	cmd = get_cmd(pipex->argv[i], pipex->env);
+	opt = ft_split(pipex->argv[i], ' ');
 	dup2(pipex->fd_out, STDOUT_FILENO);
-	if (execve(*pipex->cmd[j], pipex->cmd[j], pipex->env) == -1)
-		msg_error("Command execution failed!\n");
-}
+	printf("opt[0]: %s\n", opt[0]);
+	printf("opt[1]: %s\n", opt[1]);
+	if (execve(cmd, opt, pipex->env) == -1)
+		msg_exit("Command execution failed!\n");
+	fru(opt);
+	free(cmd);
+};

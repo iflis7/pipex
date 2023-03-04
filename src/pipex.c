@@ -6,7 +6,7 @@
 /*   By: hsaadi <hsaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 19:36:44 by hsaadi            #+#    #+#             */
-/*   Updated: 2022/10/25 00:00:43 by hsaadi           ###   ########.fr       */
+/*   Updated: 2022/10/25 19:36:57 by hsaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	child_process1(char **argv, int *pfd, char **envp)
 	cmd = get_cmd(argv[2], envp);
 	concats = ft_split(argv[2], ' ');
 	if (execve(cmd, concats, envp) == -1)
-		msg_error("Command execution failed!\n");
+		msg_exit("Command execution failed!\n");
 	free(cmd);
 	fru(concats);
 	close(pfd[1]);
@@ -45,7 +45,7 @@ static void	child_process2(int file, char **argv, int *pfd, char **envp)
 	cmd = get_cmd(argv[3], envp);
 	concats = ft_split(argv[3], ' ');
 	if (execve(cmd, concats, envp) == -1)
-		msg_error("Command execution failed!\n");
+		msg_exit("Command execution failed!\n");
 	free(cmd);
 	fru(concats);
 	close(pfd[0]);
@@ -59,7 +59,7 @@ void	pipex(char **argv, char **envp, int fd)
 	pid_t	child2;
 
 	if (pipe(pfd) == -1)
-		msg_error("Command execution failed!\n");
+		msg_exit("Command execution failed!\n");
 	child1 = fork();
 	if (child1 < 0)
 		return (perror("Fork: "));
